@@ -17,10 +17,11 @@
 ## 相關函式 : 無
 
 ## 程式說明
+
 ``` 宣告 Arduino 連結 LED 腳位
->int LED = 13;  
+int LED = 13; // 宣告 Arduino 連結 LED 腳位
 ```  Arduino 啟始函式，只會執行一次
->void setup() { 
+void setup() {  // Arduino 啟始函式，只會執行一次
 ``` 設定腳位為輸出訊號 <br />  
 >>pinMode(LED, OUTPUT); <br />  
 >} <br />  
