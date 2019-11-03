@@ -25,9 +25,9 @@ void setup() {  // Arduino 啟始函式，只會執行一次
 }  
 
 void loop() { //Arduino 主要迴圈，執行無窮多次，直到關機為主
- digitalWrite(LED, HIGH);   // 設定 LED 亮 <br />  
- delay(1000);               // 延遲一秒 <br />  
- digitalWrite(LED, LOW);    // 設定 LED 關 <br />  
- delay(1000);               // 延遲一秒 <br />  
+ digitalWrite(LED, HIGH);   // 設定 LED 亮
+ delay(1000);               // 延遲一秒  
+ digitalWrite(LED, LOW);    // 設定 LED 關
+ delay(1000);               // 延遲一秒
 }  
 
