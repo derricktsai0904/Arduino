@@ -1,5 +1,4 @@
-<center>## 【練習題目 : LED 控制】</center>
-
+<h1 style="text-align:center">【練習題目 : LED 控制】</h1>
 ## 準備材料 : 
 >1. Arduino Nano 板(CH340驅動程式.USB:MicroUSB)
 >2. MicroUSB 連接線 X 1
