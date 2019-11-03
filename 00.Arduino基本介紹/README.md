@@ -12,19 +12,20 @@ https://www.youtube.com/watch?v=hjRSwBcLcSU
 ![](https://github.com/derricktsai0904/Arduino/blob/master/00.Arduino%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/ArduinoProduct.PNG?raw=true)
 
 ## Arduino 相關應用
-###1.擴充板 
+
+### 1.擴充板 
 ![](https://github.com/derricktsai0904/Arduino/blob/master/00.Arduino%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/ArduinoShield.PNG?raw=true)
 ![](https://github.com/derricktsai0904/Arduino/blob/master/00.Arduino%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/ArduinoShield2.PNG?raw=true)
 
-###2.通訊模組
+### 2.通訊模組
 ![](https://github.com/derricktsai0904/Arduino/blob/master/00.Arduino%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/ArduinoCommunication.PNG?raw=true)
 ![](https://github.com/derricktsai0904/Arduino/blob/master/00.Arduino%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/ArduinoCommunication2.PNG?raw=true)
 
-###3.感測器
+### 3.感測器
 ![](https://github.com/derricktsai0904/Arduino/blob/master/00.Arduino%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/ArduinoSensor.PNG?raw=true)
 ![](https://github.com/derricktsai0904/Arduino/blob/master/00.Arduino%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/ArduinoSensor2.PNG?raw=true)
 ![](https://github.com/derricktsai0904/Arduino/blob/master/00.Arduino%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/ArduinoSensor3.PNG?raw=true)
 ![](https://github.com/derricktsai0904/Arduino/blob/master/00.Arduino%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/ArduinoSensor4.PNG?raw=true)
 
-###4.實例應用
+### 4.實例應用
 ![](https://github.com/derricktsai0904/Arduino/blob/master/00.Arduino%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/ArduinoApplication.PNG?raw=true)
