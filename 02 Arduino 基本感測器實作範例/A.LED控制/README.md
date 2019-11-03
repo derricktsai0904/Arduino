@@ -18,6 +18,8 @@
 
 ## 程式說明
 
+[以下程式來源 Blink.ino ]:https://github.com/derricktsai0904/Arduino/blob/master/02%20Arduino%20%E5%9F%BA%E6%9C%AC%E6%84%9F%E6%B8%AC%E5%99%A8%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/A.LED%E6%8E%A7%E5%88%B6/Blink.ino "Blink.ino"
+[以下程式來源 Blink.ino ]
 ``` arduino
 int LED = 13; // 宣告 Arduino 連結 LED 腳位
 void setup() {  // Arduino 啟始函式，只會執行一次
