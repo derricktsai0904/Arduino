@@ -17,19 +17,19 @@
 ## 相關函式 : 無
 
 ## 程式說明
-
->int LED = 13; // 宣告 Arduino 連結 LED 腳位 <br />  
->// Arduino 啟始函式，只會執行一次 <br />  
->void setup() { <br />  
->>// 設定腳位為輸出訊號 <br />  
+``` 宣告 Arduino 連結 LED 腳位
+>int LED = 13;  
+```  Arduino 啟始函式，只會執行一次
+>void setup() { 
+``` 設定腳位為輸出訊號 <br />  
 >>pinMode(LED, OUTPUT); <br />  
 >} <br />  
 > <br />  
->// Arduino 主要迴圈，執行無窮多次，直到關機為主 <br />  
->void loop() { <br />  
->>digitalWrite(LED, HIGH);   // 設定 LED 亮 <br />  
->>delay(1000);               // 延遲一秒 <br />  
->>digitalWrite(LED, LOW);    // 設定 LED 關 <br />  
->>delay(1000);               // 延遲一秒 <br />  
+``` Arduino 主要迴圈，執行無窮多次，直到關機為主 <br />  
+>void loop() {  
+>>digitalWrite(LED, HIGH);   \// 設定 LED 亮 <br />  
+>>delay(1000);               \// 延遲一秒 <br />  
+>>digitalWrite(LED, LOW);    \// 設定 LED 關 <br />  
+>>delay(1000);               \// 延遲一秒 <br />  
 >} <br />  
 
