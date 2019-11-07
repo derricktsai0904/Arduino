@@ -11,7 +11,7 @@ void setup() {
 
 // Arduino 主要迴圈，執行無窮多次，直到關機為主
 void loop() {
-　// 霹靂燈由 2->6
+  // 霹靂燈由 2->6
   for(int i=0;i<5;i++){ // 燈號由小到大
       for(int j=0;j<5;j++){
          if(i==j){
@@ -22,8 +22,9 @@ void loop() {
             digitalWrite(ledPins[j], LOW);   // 設定 LED 關
          }
       }  // for j 迴圈
+      delay(100);
   } // for i 迴圈
-
+  
   // 霹靂燈由 6->2
   for(int i=4;i>=0;i--){ // 燈號由小到大
       for(int j=0;j<5;j++){
@@ -35,6 +36,7 @@ void loop() {
             digitalWrite(ledPins[j], LOW);   // 設定 LED 關
          }
       }  // for j 迴圈
+      delay(100);
   } // for i 迴圈
 
 }
