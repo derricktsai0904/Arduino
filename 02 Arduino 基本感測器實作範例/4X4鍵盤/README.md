@@ -8,61 +8,48 @@
 >5. 麵包板 X 1
 ===
  
->![](https://github.com/derricktsai0904/Arduino/blob/master/02%20Arduino%20%E5%9F%BA%E6%9C%AC%E6%84%9F%E6%B8%AC%E5%99%A8%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/%E4%B8%83%E6%AE%B5%E9%A1%AF%E7%A4%BA%E5%99%A8/Arduino_Seven_M.JPG?raw=true)
+>![](https://github.com/derricktsai0904/Arduino/blob/master/02%20Arduino%20%E5%9F%BA%E6%9C%AC%E6%84%9F%E6%B8%AC%E5%99%A8%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/4X4%E9%8D%B5%E7%9B%A4/Arduino_Keypad_M.JPG?raw=true)
 
-## 七段顯示器電路圖
+## 4X4鍵盤電路圖
 
->![](https://github.com/derricktsai0904/Arduino/blob/master/02%20Arduino%20%E5%9F%BA%E6%9C%AC%E6%84%9F%E6%B8%AC%E5%99%A8%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/%E4%B8%83%E6%AE%B5%E9%A1%AF%E7%A4%BA%E5%99%A8/Arduino_Seven.JPG?raw=true)
+>![](https://github.com/derricktsai0904/Arduino/blob/master/02%20Arduino%20%E5%9F%BA%E6%9C%AC%E6%84%9F%E6%B8%AC%E5%99%A8%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/4X4%E9%8D%B5%E7%9B%A4/Arduino_Keypad_C.JPG?raw=true)
 
-## 相關函式 : 無
+## 相關函式 : Keypad.h
 
 ## 程式說明
 
-[以下程式來源 Seven.ino ]:https://github.com/derricktsai0904/Arduino/blob/master/02%20Arduino%20%E5%9F%BA%E6%9C%AC%E6%84%9F%E6%B8%AC%E5%99%A8%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/%E4%B8%83%E6%AE%B5%E9%A1%AF%E7%A4%BA%E5%99%A8/Seven.ino "Seven.ino"
-[以下程式來源 Seven.ino ]
+[以下程式來源 Keypad44.ino ]:https://github.com/derricktsai0904/Arduino/blob/master/02%20Arduino%20%E5%9F%BA%E6%9C%AC%E6%84%9F%E6%B8%AC%E5%99%A8%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/4X4%E9%8D%B5%E7%9B%A4/Keypad44.ino "Keypad44.ino"
+[以下程式來源 Keypad44.ino ]
 ``` arduino
 
-int i;
-int j;
+#include <Keypad.h>
 
-// 設定一個 matrix，B0111111 最前面的 B 代表資料型態為 byte
-// 後面跟的 0111111 則是上面對照表的 gfedcba 
-const byte num[10]={
-    B0111111,  //0
-    B0000110,  //1
-    B1011011,  //2
-    B1001111,  //3
-    B1100110,  //4
-    B1101101,  //5
-    B1111101,  //6
-    B0000111,  //7    
-    B1111111,  //8
-    B1101111   //9    
+const byte ROWS = 4; //four rows
+const byte COLS = 4; //four columns
+//define the cymbols on the buttons of the keypads
+
+char hexaKeys[ROWS][COLS] = {
+  {'F','E','D','C'},
+  {'B','3','6','9'},
+  {'A','2','5','8'},
+  {'0','1','4','7'}
 };
 
-// 設定顯示器各段對應的 pin
-const int seg[]={2,3,4,5,6,7,8};  //ABCDEFG
+byte rowPins[ROWS] = {5, 4, 3, 2}; //connect to the row pinouts of the keypad
+byte colPins[COLS] = {9, 8, 7, 6}; //connect to the column pinouts of the keypad
 
-// 設定各段 pin 為 output
-void setup() 
-{ 
-  for(i=0;i<7;i++)
-    pinMode(seg[i],OUTPUT);
+//initialize an instance of class NewKeypad
+Keypad customKeypad = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS); 
+
+void setup(){
+  Serial.begin(9600);
 }
-void loop() 
-{
-  for(i=0;i<10;i++)
-  {
-    for(j=0;j<7;j++)
-    {
-  // 讀取 0~9 matrix 裡的數字，ex: B0111111 的第0~6個位元
-  // 並由對應的 pin 腳輸出高電壓，使 7 段 LED 發出對應的明亮
-      if(bitRead(num[i],j))
-        digitalWrite(seg[j],HIGH);
-      else
-        digitalWrite(seg[j],LOW);        
-    }
-  delay(1000);    
-  } 
+  
+void loop(){
+  char customKey = customKeypad.getKey();
+  
+  if (customKey){
+    Serial.println(customKey);
+  }
 }
 ```
