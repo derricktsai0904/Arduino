@@ -17,7 +17,7 @@
 
 ## 相關函式 : SoftwareSerial.h
 
-[以下程式來源 hc-05_at_commands.pdf ]:https://github.com/derricktsai0904/Arduino/blob/master/03%20Arduino%20%E9%80%B2%E9%9A%8E%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/01%20%E8%97%8D%E8%8A%BD%E6%87%89%E7%94%A8/hc-05_at_commands.pdf "hc-05_at_commands.pdf"
+[HC-05藍芽元件AT COMMANDS指令參考 hc-05_at_commands.pdf ]:https://github.com/derricktsai0904/Arduino/blob/master/03%20Arduino%20%E9%80%B2%E9%9A%8E%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/01%20%E8%97%8D%E8%8A%BD%E6%87%89%E7%94%A8/hc-05_at_commands.pdf "hc-05_at_commands.pdf"
 
 [HC-05藍芽元件AT COMMANDS指令參考 hc-05_at_commands.pdf ]
 
