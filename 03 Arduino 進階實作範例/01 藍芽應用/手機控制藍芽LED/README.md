@@ -13,51 +13,113 @@
 
 ## 藍芽HC-05 AT 控制 LED 電路圖
 
->![](https://github.com/derricktsai0904/Arduino/blob/master/03%20Arduino%20%E9%80%B2%E9%9A%8E%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/01%20%E8%97%8D%E8%8A%BD%E6%87%89%E7%94%A8/BT_AT_CMD_C.JPG?raw=true)
+>![](https://github.com/derricktsai0904/Arduino/blob/master/03%20Arduino%20%E9%80%B2%E9%9A%8E%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/01%20%E8%97%8D%E8%8A%BD%E6%87%89%E7%94%A8/%E6%89%8B%E6%A9%9F%E6%8E%A7%E5%88%B6%E8%97%8D%E8%8A%BDLED/BT_ACTIVE_C.JPG?raw=true)
 
 ## 相關函式 : SoftwareSerial.h
 
-[HC-05藍芽元件AT COMMANDS指令參考 hc-05_at_commands.pdf ]:https://github.com/derricktsai0904/Arduino/blob/master/03%20Arduino%20%E9%80%B2%E9%9A%8E%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/01%20%E8%97%8D%E8%8A%BD%E6%87%89%E7%94%A8/hc-05_at_commands.pdf "hc-05_at_commands.pdf"
-
-[HC-05藍芽元件AT COMMANDS指令參考 hc-05_at_commands.pdf ]
 
 ## 程式說明
 
-[以下程式來源 BT_AT_CMD.ino ]:https://github.com/derricktsai0904/Arduino/blob/master/03%20Arduino%20%E9%80%B2%E9%9A%8E%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/01%20%E8%97%8D%E8%8A%BD%E6%87%89%E7%94%A8/BT_AT_CMD.ino "BT_AT_CMD.ino"
-[以下程式來源 BT_AT_CMD.ino ]
+[以下程式來源 BT_LED__DEMO.ino ]:https://github.com/derricktsai0904/Arduino/blob/master/03%20Arduino%20%E9%80%B2%E9%9A%8E%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/01%20%E8%97%8D%E8%8A%BD%E6%87%89%E7%94%A8/%E6%89%8B%E6%A9%9F%E6%8E%A7%E5%88%B6%E8%97%8D%E8%8A%BDLED/BT_LED__DEMO.ino "BT_LED__DEMO.ino"
+[以下程式來源 BT_LED__DEMO.ino ]
 ``` arduino
-#include <SoftwareSerial.h>   // 引用程式庫
+#include <SoftwareSerial.h>
+#define RxD 8
+#define TxD 9
+#define LED 13  // 輸出LED燈
+
+SoftwareSerial blueToothSerial(RxD,TxD); 
+
+// 以下是接收到APP傳送藍芽的代號
+const int LED_ON = 0x1;
+const int LED_OFF = 0x2;
+const int LED_SHIN = 0x3;
+
+const int DELAY = 300;
+
+unsigned char temp_val;
+unsigned char Receive_val;
+unsigned char len;
+unsigned char Buffer_temp[4];
+unsigned char i;
+
+void UART_FUN()
+{
+
+  for(i=0;i<5;i++)
+   Buffer_temp[i]=0x0;
+    delay(100);
+  while(blueToothSerial.available())            
+  {                                                
+     Receive_val=blueToothSerial.read();
+      Serial.print(Receive_val); 
+      Serial.print("\n"); 
+     
+
+     if(Receive_val==0xAA)
+     {
+         len=0;
+        Buffer_temp[len++]=Receive_val;
+     }
+     else if(len < 5)
+     {
+        Buffer_temp[len++]=Receive_val;
+     }
+     
+  }   
  
-// 定義連接藍牙模組的序列埠
-SoftwareSerial BT(8,9); // 接收腳, 傳送腳
-// HC05:TX->8  RX->9
-char val;  // 儲存接收資料的變數
- 
-void setup() {
-  Serial.begin(38400);   // 與電腦序列埠連線
-  Serial.println("BT is ready!");
- 
-  // 設定藍牙模組的連線速率
-  // 如果是HC-05，請改成38400
-  BT.begin(38400);
+  if(Buffer_temp[0]==0xAA && Buffer_temp[1]==0xBB && Buffer_temp[3]==0xF1)
+  {
+   Serial.print("LED_ON \n"); 
+   temp_val=LED_ON;
+   }
+   else if(Buffer_temp[0]==0xAA && Buffer_temp[1]==0xBB && Buffer_temp[3]==0xF2)
+  {
+   Serial.print("LED_OFF \n"); 
+   temp_val=LED_OFF ;
+   }
+   else if(Buffer_temp[0]==0xAA && Buffer_temp[1]==0xBB && Buffer_temp[3]==0xF3)
+  {
+   Serial.print("LED_SHIN \n"); 
+   temp_val=LED_SHIN ;
+   } 
+
 }
- 
-void loop() {
-  // 若收到「序列埠監控視窗」的資料，則送到藍牙模組
-  if (Serial.available()) {
-    val = Serial.read();
-    BT.print(val);
+
+
+void setup()  
+{
+  pinMode(LED, OUTPUT);   
+  Serial.begin(38400);  
+  blueToothSerial.begin(38400);
+  temp_val=0;     
+  len=0;
+}
+
+void loop()
+{
+  UART_FUN();
+  
+  if(temp_val==LED_ON)
+  {
+      digitalWrite(LED, HIGH); 
+  }
+  else if(temp_val==LED_OFF)
+  {
+      digitalWrite(LED, LOW); 
+  
+  }
+  else if(temp_val==LED_SHIN)
+  {
+     for(int i=0;i<5;i++){
+       digitalWrite(LED, HIGH);
+       delay(100);
+       digitalWrite(LED, LOW);
+       delay(100);
+     }
+     temp_val=LED_OFF;
   }
  
-  // 若收到藍牙模組的資料，則送到「序列埠監控視窗」
-  if (BT.available()) {
-    val = BT.read();
-    Serial.print(val);
-  }
 }
 
 ```
-
-## 藍芽 HC-05 AT COMMAND 模式執行結果
-
->![](https://github.com/derricktsai0904/Arduino/blob/master/03%20Arduino%20%E9%80%B2%E9%9A%8E%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/01%20%E8%97%8D%E8%8A%BD%E6%87%89%E7%94%A8/BT_AT_CMD_SAMPLECODE.JPG?raw=true)
