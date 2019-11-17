@@ -1,4 +1,4 @@
-<h1>【練習題目 : 手機控制 藍芽LED 電路】</h1>
+<h1>【練習題目 : 藍芽 HC-05 AT Command 電路】</h1>
 
 ## 準備材料 : 
 >1. Arduino Nano 板(CH340驅動程式.USB:MicroUSB)
