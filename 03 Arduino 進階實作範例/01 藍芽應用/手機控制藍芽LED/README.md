@@ -123,3 +123,6 @@ void loop()
 }
 
 ```
+
+##掃描以下 QRCODE 下載 Android Apk 來安裝
+>![](https://github.com/derricktsai0904/Arduino/blob/master/03%20Arduino%20%E9%80%B2%E9%9A%8E%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/01%20%E8%97%8D%E8%8A%BD%E6%87%89%E7%94%A8/%E6%89%8B%E6%A9%9F%E6%8E%A7%E5%88%B6%E8%97%8D%E8%8A%BDLED/BT_APK.JPG?raw=true)
