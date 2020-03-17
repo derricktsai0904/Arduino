@@ -1,7 +1,8 @@
 
 
 安裝 NodeJS.
-https://nodejs.org/zh-tw/download/
+#https://nodejs.org/zh-tw/download/
+
 可使用以下指令查看 nodejs 以及 npm 的版本
 CMD MODE: node -v
 CMD MODE: npm -v 
