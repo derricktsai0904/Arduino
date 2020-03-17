@@ -8,7 +8,7 @@ https://nodejs.org/zh-tw/download/
 CMD MODE: node -v<br>
 CMD MODE: npm -v <br>
 
-node server.js (在伺服器端架一個微服務 , server.js=> 須撰寫服務的內容 ) <br>
+CMD MODE: node server.js (在伺服器端架一個微服務 , server.js=> 須撰寫服務的內容 ) <br>
 
 安裝 express<br>
 CMD MODE: 輸入 npm install express<br>
