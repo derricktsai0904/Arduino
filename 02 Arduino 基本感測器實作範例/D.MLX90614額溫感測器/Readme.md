@@ -9,8 +9,8 @@
 
 匯入程式庫
 
-[以下程式來源 Adafruit-MLX90614-Library-master.zip ]:https://github.com/derricktsai0904/Arduino/blob/master/02%20Arduino%20%E5%9F%BA%E6%9C%AC%E6%84%9F%E6%B8%AC%E5%99%A8%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/D.MLX90614%E9%A1%8D%E6%BA%AB%E6%84%9F%E6%B8%AC%E5%99%A8/Adafruit-MLX90614-Library-master.zip "Adafruit-MLX90614-Library-master.zip"
-[以下程式來源 Adafruit-MLX90614-Library-master.zip ]
+[以下程式庫來源 Adafruit-MLX90614-Library-master.zip ]:https://github.com/derricktsai0904/Arduino/blob/master/02%20Arduino%20%E5%9F%BA%E6%9C%AC%E6%84%9F%E6%B8%AC%E5%99%A8%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/D.MLX90614%E9%A1%8D%E6%BA%AB%E6%84%9F%E6%B8%AC%E5%99%A8/Adafruit-MLX90614-Library-master.zip "Adafruit-MLX90614-Library-master.zip"
+[以下程式庫來源 Adafruit-MLX90614-Library-master.zip ]
 
 ===
 
@@ -18,4 +18,27 @@
 
 >![](https://github.com/derricktsai0904/Arduino/blob/master/02%20Arduino%20%E5%9F%BA%E6%9C%AC%E6%84%9F%E6%B8%AC%E5%99%A8%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/D.MLX90614%E9%A1%8D%E6%BA%AB%E6%84%9F%E6%B8%AC%E5%99%A8/%E6%8E%A5%E7%B7%9A%E5%9C%96.jpg?raw=true)
 
+[以下程式來源 MLX90614.ino ]:https://github.com/derricktsai0904/Arduino/blob/master/02%20Arduino%20%E5%9F%BA%E6%9C%AC%E6%84%9F%E6%B8%AC%E5%99%A8%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B/D.MLX90614%E9%A1%8D%E6%BA%AB%E6%84%9F%E6%B8%AC%E5%99%A8/MLX90614.ino "MLX90614.ino"
+[以下程式來源 MLX90614.ino ]
+``` arduino
+#include <Wire.h>
+#include <Adafruit_MLX90614.h>
 
+Adafruit_MLX90614 mlx = Adafruit_MLX90614();
+
+void setup() {
+  Serial.begin(9600);
+
+  Serial.println("Adafruit MLX90614 test");  
+
+  mlx.begin();  
+}
+
+void loop() {
+  Serial.print("Ambient = "); Serial.print(mlx.readAmbientTempC()); 
+  Serial.print("*C\tObject = "); Serial.print(mlx.readObjectTempC()); Serial.println("*C");
+
+  Serial.println();
+  delay(500);
+}
+```
