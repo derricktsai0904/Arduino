@@ -1,11 +1,11 @@
 <h1>【練習題目 : 額溫測量電路】</h1>
 ## 準備材料 : 
->1. Arduino Nano 板(CH340驅動程式.USB:MicroUSB)
->2. MicroUSB 連接線 X 1
->3. MLX90614 X 1
->4. 杜邦線數條
->5. 麵包板 X 1
->6. 10K(棕黑橙)電阻 X 2
+>1. Arduino Nano 板(CH340驅動程式.USB:MicroUSB) <br>
+>2. MicroUSB 連接線 X 1 <br>
+>3. MLX90614 X 1 <br>
+>4. 杜邦線數條 <br>
+>5. 麵包板 X 1 <br>
+>6. 10K(棕黑橙)電阻 X 2 <br>
 
 匯入程式庫
 
