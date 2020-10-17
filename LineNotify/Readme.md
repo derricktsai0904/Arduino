@@ -5,7 +5,7 @@
 
 ## 申請LINE帳號
 > (1) 申請LINE帳號https://line.me/zh-hant/ <br />
-> (2) 連結至Line Notify https://notify-bot.line.me/zh_TW/，並登入Line Notify <br />
+> (2) 連結至Line Notify https://notify-bot.line.me/zh_TW/ ，並登入Line Notify <br />
 
 ## 發行LINE權杖
 > (1) 登入Line Notify網頁 (https://notify-bot.line.me/zh_TW/) <br />
