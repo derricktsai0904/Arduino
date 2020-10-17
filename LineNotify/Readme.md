@@ -11,6 +11,7 @@
 > (1) 登入Line Notify網頁 (https://notify-bot.line.me/zh_TW/) <br />
 > (2) 在右上角個人帳號底下，選擇「個人頁面」 <br />
 > (3) 按下發行權杖 <br />
+> ![](https://github.com/derricktsai0904/Arduino/blob/master/00.Arduino%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/ArduinoShield.PNG?raw=true)
 
 
 ## 將溫濕度值傳送至LINE
