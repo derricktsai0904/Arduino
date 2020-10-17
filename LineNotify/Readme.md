@@ -12,6 +12,7 @@
 > (2) 在右上角個人帳號底下，選擇「個人頁面」 <br />
 > (3) 按下發行權杖 <br />
 >![](https://github.com/derricktsai0904/Arduino/blob/master/LineNotify/lineissue.PNG?raw=true)
-
+>![](https://github.com/derricktsai0904/Arduino/blob/master/LineNotify/linecode.png?raw=true)
+>![](https://github.com/derricktsai0904/Arduino/blob/master/LineNotify/linelink.PNG?raw=true)
 
 ## 將溫濕度值傳送至LINE
