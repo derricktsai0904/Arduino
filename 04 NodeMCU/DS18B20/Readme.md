@@ -1,4 +1,4 @@
-<h1>【練習題目 : NodeMCU LED 控制(Blink)】</h1>
+<h1>【練習題目 : NodeMCU DS18B20 溫度感測器】</h1>
 
 ## 準備材料 : 
 >1. NodeMCU 板(CH340驅動程式.USB:MicroUSB)
@@ -18,6 +18,11 @@
 >![](https://github.com/derricktsai0904/Arduino/blob/master/04%20NodeMCU/DS18B20/DS18.png?raw=true)
 
 ## 相關函式 : 
+#include <DallasTemperature.h>
+>![](https://github.com/derricktsai0904/Arduino/blob/master/04%20NodeMCU/DS18B20/DallasTemperature.PNG?raw=true)
+
+#include <OneWire.h>
+>![](https://github.com/derricktsai0904/Arduino/blob/master/04%20NodeMCU/DS18B20/OneWire.PNG?raw=true)
 
 
 ## 程式說明
