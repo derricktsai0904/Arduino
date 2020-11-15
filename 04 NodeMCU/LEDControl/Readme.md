@@ -20,7 +20,7 @@ LED 負 : GND
 
 ## 網頁控制畫面
 
->![](https://github.com/derricktsai0904/Arduino/blob/master/04%20NodeMCU/LEDControl/LEDControl.PNGraw=true)
+>![](https://github.com/derricktsai0904/Arduino/blob/master/04%20NodeMCU/LEDControl/LEDControl.PNG?raw=true)
 
 ## 程式說明
 
