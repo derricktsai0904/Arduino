@@ -1,4 +1,4 @@
-<h1>【練習題目 : NodeMCU LED 控制(Blink)】</h1>
+<h1>【FTDI232 Program in Arduino Nano (Blink Example)】</h1>
 
 ## 準備材料 : 
 >1. Arduino Nano 板(CH340驅動程式.USB:MicroUSB) X 1
@@ -26,6 +26,11 @@
 ## FTDI232 Update USB Serial Driver 圖
 
 >![](https://github.com/derricktsai0904/Arduino/blob/master/05.FTDI232_Program_Setting/update_usb.png?raw=true)
+
+
+## FTDI232 Program in Arduino Nano 電路圖
+
+>![](https://github.com/derricktsai0904/Arduino/blob/master/05.FTDI232_Program_Setting/FTDI_Program.PNG?raw=true)
 
 
 ## 程式說明
