@@ -5,39 +5,18 @@
 >2. MicroUSB 連接線 X 1
 ===
 
+## ESP32 開發管理員網址 
+開啟Arduino IDE後，選擇功能表的檔案/偏好設定，開啟偏好設定視窗，在addition boards manager URL輸入以下文字後，按OK。
+https://dl.espressif.com/dl/package_esp32_index.json
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/01.ESP32%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP32-board.png?raw=true)
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/01.ESP32%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP32%E9%96%8B%E7%99%BC%E6%9D%BF%E7%AE%A1%E7%90%86%E5%93%A1.png?raw=true)
+
 ## ESP32 腳位圖 
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/01.ESP32%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP-pin.png?raw=true)
 
->![](https://github.com/derricktsai0904/Arduino/blob/master/04%20NodeMCU/Blink/nodemcu_pin.PNG?raw=true)
+## ESP32 驅動程式 
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/01.ESP32%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP32-Driver.png?raw=true)
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/01.ESP32%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP32-Driver2.png?raw=true)
 
-## LED控制電路圖
-
->![](https://github.com/derricktsai0904/Arduino/blob/master/04%20NodeMCU/Blink/NodeMCU_circuit.PNG?raw=true)
-
-## 相關函式 : 無
-
-## 程式說明
-
-[以下程式來源 ESP8266-Blink.ino ]:https://github.com/derricktsai0904/Arduino/blob/master/04%20NodeMCU/Blink/ESP8266-Blink.ino "ESP8266-Blink.ino"
-[以下程式來源 ESP8266-Blink.ino ]
-``` arduino
-#define D0 16 
-
-void setup() {
-  pinMode(D0, OUTPUT);     // Initialize the LED_BUILTIN pin as an output
-}
-
-// the loop function runs over and over again forever
-void loop() {
-  digitalWrite(D0, LOW);
-  delay(1000);
-  digitalWrite(D0, HIGH);
-  delay(1000);
-}
-
-```
-
-
-
-
-
-
+## ESP32 測試程式
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/01.ESP32%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ES32-testcode.png?raw=true)
