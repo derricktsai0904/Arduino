@@ -11,14 +11,29 @@
 
 ## ESP32-CAM 圖 
 
->![](https://github.com/derricktsai0904/Arduino/blob/master/04%20NodeMCU/Blink/nodemcu_pin.PNG?raw=true)
->![](https://github.com/derricktsai0904/Arduino/blob/master/04%20NodeMCU/Blink/nodemcu_pin.PNG?raw=true)
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/02.ESP32-CAM%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP32-CAM.png?raw=true)
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/02.ESP32-CAM%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP32-CAM_pin.PNGraw=true)
 
-## LED控制電路圖
+## ESP32-CAM Arduino 初始化設定
+輸入
+https://dl.espressif.com/dl/package_esp32_index.json
 
->![](https://github.com/derricktsai0904/Arduino/blob/master/04%20NodeMCU/Blink/NodeMCU_circuit.PNG?raw=true)
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/02.ESP32-CAM%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP32-CAM-Setting1.png?raw=true)
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/02.ESP32-CAM%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP32-CAM-Setting2.png?raw=true)
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/02.ESP32-CAM%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP32-CAM-Setting3.png?raw=true)
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/02.ESP32-CAM%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP32-CAM-Setting4.png?raw=true)
 
-## 相關函式 : 無
+## ESP32-CAM 燒錄說明
+
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/02.ESP32-CAM%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP32-CAM-FTDI-programmer-5V-supply.png?raw=true)
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/02.ESP32-CAM%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP32-CAM-Burn.PNG?raw=true)
+燒錄時，IO0 跟 GND 要接起來，如果燒錄不成功，請按RESET 再燒錄一次，燒錄完成要將 IO0與GND 斷開。
+
+選擇開發板為ESP32 Wrover Module
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/02.ESP32-CAM%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP32-CAM-Setting5.png?raw=true)
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/02.ESP32-CAM%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP32-CAM-Sample.png?raw=true)
+
+## ESP32-CAM Arduino 初始化設定
 
 ## 程式說明
 
