@@ -160,4 +160,12 @@ void loop() {
 
 ```
 
+## 燒錄程式碼注意事項
+看到下圖的畫面，要按一下 ESP32-CAM 的 RST 按鈕，才會繼續往下燒錄，否則會出現錯誤。
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/03.CameraWebServer/ESP32-CAM-uploading-code.png?raw=true)
+
+當燒錄完成，必須要把 IO0 與 GND 腳位斷開，然後開啟序列監視埠畫面後，再按一次 RESET 就會出現下圖畫面，請紀錄 IP Address ，然後使用瀏覽器開啟該位址，就可以出現鏡頭即時影像。
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/03.CameraWebServer/esp32-cam-ip-address.png?raw=true)
+
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/03.CameraWebServer/ESP32-CAM-video-streaming-example.jpg?raw=true)
 
