@@ -19,6 +19,7 @@
 ## ESP32-CAM 環境設定
 >![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/03.CameraWebServer/ESP32-CAM-Setting1.png?raw=true)
 
+輸入 https://dl.espressif.com/dl/package_esp32_index.json
 >![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/03.CameraWebServer/ESP32-CAM-Setting2.png?raw=true)
 
 >![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/03.CameraWebServer/ESP32-CAM-Setting3.png?raw=true)
@@ -42,6 +43,10 @@
 >![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/03.CameraWebServer/ESP32-CAM-Burn.PNG?raw=true)
 
 ## 程式說明
+## 程式碼調整
+啟用  #define CAMERA_MODEL_AI_THINKER
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/03.CameraWebServer/define.jpg?raw=true)
+
 
 [以下程式來源 CameraWebServer.ino ]:https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/03.CameraWebServer/CameraWebServer.ino "CameraWebServer.ino"
 [以下程式來源 CameraWebServer.ino ]
