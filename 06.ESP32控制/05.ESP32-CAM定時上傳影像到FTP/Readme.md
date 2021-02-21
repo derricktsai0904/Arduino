@@ -16,6 +16,9 @@
 白色:RXD
 綠色:TXD
 
+## 實作電路圖
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/05.ESP32-CAM%E5%AE%9A%E6%99%82%E4%B8%8A%E5%82%B3%E5%BD%B1%E5%83%8F%E5%88%B0FTP/PL2303%2BESP32-CAM.png?raw=true)
+
 ## 相關函式 : 無
 
 ## 程式說明
