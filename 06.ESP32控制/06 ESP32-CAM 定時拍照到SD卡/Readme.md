@@ -1,4 +1,4 @@
-<h1>【練習題目 : ESP32-CAM 定時上傳影像到 FTP】</h1>
+<h1>【練習題目 : ESP32-CAM 定時拍照影像到SD卡】</h1>
 
 ## 準備材料 : 
 >1. ESP32-CAM 板(CH340驅動程式)
@@ -23,7 +23,7 @@
 
 ## 程式說明
 
-[以下程式來源 ESP32-CAM_TimelapseToSD.ino ]:https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/05.ESP32-CAM%E5%AE%9A%E6%99%82%E4%B8%8A%E5%82%B3%E5%BD%B1%E5%83%8F%E5%88%B0FTP/ESP32-CAM_TimelapseToFTP.ino "ESP32-CAM_TimelapseToFTP.ino"
+[以下程式來源 ESP32-CAM_TimelapseToSD.ino ]:https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/06%20ESP32-CAM%20%E5%AE%9A%E6%99%82%E6%8B%8D%E7%85%A7%E5%88%B0SD%E5%8D%A1/ESP32-CAM_TimelapseToSD.ino "ESP32-CAM_TimelapseToFTP.ino"
 [以下程式來源 ESP32-CAM_TimelapseToSD.ino ]
 ``` arduino
 #include "esp_camera.h"
