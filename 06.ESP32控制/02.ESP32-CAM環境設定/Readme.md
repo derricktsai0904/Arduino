@@ -22,6 +22,7 @@ https://dl.espressif.com/dl/package_esp32_index.json
 >![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/02.ESP32-CAM%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP32-CAM-Setting2.png?raw=true)
 >![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/02.ESP32-CAM%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP32-CAM-Setting3.png?raw=true)
 >![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/02.ESP32-CAM%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP32-CAM-Setting4.png?raw=true)
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/02.ESP32-CAM%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/TTL.JPG?raw=true)
 
 ## ESP32-CAM 燒錄說明
 
