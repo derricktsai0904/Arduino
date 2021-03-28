@@ -8,11 +8,7 @@
 >5. 麵包板 X 1
 ===
 
-## ESP32-CAM 腳位圖 
-
->![](https://github.com/derricktsai0904/Arduino/blob/master/04%20NodeMCU/Blink/nodemcu_pin.PNG?raw=true)
-
-## LED控制電路圖
+## ESP32-CAM & LED控制電路圖
 
 >![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/08%20ESP32-CAM_Web_Control_LED/ESP32-CAM-Web-Control-LED.JPG?raw=true)
 >![](https://github.com/derricktsai0904/Arduino/raw/master/06.ESP32%E6%8E%A7%E5%88%B6/02.ESP32-CAM%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/TTL.JPG?raw=true)
