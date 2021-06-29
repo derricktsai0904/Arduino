@@ -18,5 +18,9 @@ https://dl.espressif.com/dl/package_esp32_index.json
 >![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/01.ESP32%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP32-Driver.png?raw=true)
 >![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/01.ESP32%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ESP32-Driver2.png?raw=true)
 
+## ESP32 選取開發板
+首先先到"工具"，然後選取開發板管理員，選擇"Node32S"這個開發板以及挑選對應的序列埠。
+>![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/01.ESP32%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/%E9%96%8B%E7%99%BC%E6%9D%BF%E9%81%B8%E5%8F%96.JPG?raw=true)
+
 ## ESP32 測試程式
 >![](https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/01.ESP32%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A/ES32-testcode.png?raw=true)
