@@ -28,9 +28,9 @@
 
 
 ## 相關函式 : 無
-#include "Arduino.h"
-#include "SoftwareSerial.h"
-#include "DFRobotDFPlayerMini.h"
+>1. Arduino.h
+>2. SoftwareSerial.h
+>3. DFRobotDFPlayerMini.h
 
 ## 程式說明
 
