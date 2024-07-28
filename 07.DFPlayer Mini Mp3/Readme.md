@@ -3,6 +3,8 @@
 ## 接線方式
 
 |接線方式||
+| DFPlayer Mini| Arduino板 |
+| ------- | ----------- |
 |VCC | 5V |
 |GND | GND |
 |RX | Pin 10 (加1K電阻) |
