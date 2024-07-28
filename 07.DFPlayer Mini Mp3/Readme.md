@@ -1,10 +1,9 @@
 
 ## DFPlayer Mini Mp3 腳位圖
-
+>![](https://github.com/derricktsai0904/Arduino/blob/master/07.DFPlayer%20Mini%20Mp3/DFPlayerMiniMp3.jpg?raw=true)
 
 ## Arduino 電路圖
-
-
+>![](https://github.com/derricktsai0904/Arduino/blob/master/07.DFPlayer%20Mini%20Mp3/Arduino%E6%9D%BF%E9%9B%BB%E8%B7%AF%E5%9C%96.jpg?raw=true)
 
 ## 接線方式
 
