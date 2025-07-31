@@ -1,6 +1,6 @@
 
 
-<h1>【說明 : 紅外線接收電路 </h1>
+<h1>【說明 : 紅外線發射電路 </h1>
 
 ## 準備材料 : 
 >1. Nano 開發板 X 1
@@ -8,14 +8,14 @@
 >3. 38kHz 紅外線發射模組 X 1 <br>
 ===
 
-## 紅外線接收器 腳位圖 
+## 紅外線發射器 腳位圖 
 >![](IRTrm.jpg?raw=true)
 
-## 紅外線接收器 電路圖 
+## 紅外線發射器 電路圖 
 >![](IR_Transmitter_Circult.jpg?raw=true)
 
-[以下程式來源 IRRcv.ino ]:https://github.com/derricktsai0904/Arduino/blob/master/08.%20%E7%B4%85%E5%A4%96%E7%B7%9A%E7%99%BC%E9%80%81%E4%BB%A5%E5%8F%8A%E6%8E%A5%E6%94%B6/01%20%E7%B4%85%E5%A4%96%E7%B7%9A%E6%8E%A5%E6%94%B6/IRRcv.ino "IRRcv.ino"
-[以下程式來源 IRRcv.ino ]
+[以下程式來源 IRTrm.ino ]:https://github.com/derricktsai0904/Arduino/blob/master/08.%20%E7%B4%85%E5%A4%96%E7%B7%9A%E7%99%BC%E9%80%81%E4%BB%A5%E5%8F%8A%E6%8E%A5%E6%94%B6/01%20%E7%B4%85%E5%A4%96%E7%B7%9A%E6%8E%A5%E6%94%B6/IRRcv.ino "IRTrm.ino"
+[以下程式來源 IRTrm.ino ]
 ``` arduino
 
 //Install IRremote Version 4 or later
