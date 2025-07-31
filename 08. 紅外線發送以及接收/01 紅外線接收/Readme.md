@@ -5,14 +5,14 @@
 ## 準備材料 : 
 >1. Nano 開發板 X 1
 >2. MicroUSB 連接線 X 1
->3. 38kHz 紅外線接收感測模組 X 1
+>3. 38kHz 紅外線接收感測模組 X 1 <br>
 ===
 
 ## 紅外線接收器 腳位圖 
 >![](IRRcv.jpg?raw=true)
 
-[以下程式來源 ESP32-CAM-Ultrasonic-Line_LED.ino ]:https://github.com/derricktsai0904/Arduino/blob/master/06.ESP32%E6%8E%A7%E5%88%B6/04.ESP32-CAM%2BUltrasonic/ESP32-CAM-Ultrasonic-Line_LED.ino "ESP32-CAM-Ultrasonic-Line_LED.ino"
-[以下程式來源 ESP32-CAM-Ultrasonic-Line_LED.ino ]
+[以下程式來源 IRRcv.ino ]: IRRcv.ino"
+[以下程式來源 IRRcv.ino ]
 ``` arduino
 
 //Install IRremote Version 4 or later
