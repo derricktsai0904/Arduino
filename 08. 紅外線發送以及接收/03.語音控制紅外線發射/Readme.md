@@ -2,24 +2,26 @@
 ## 語音控制紅外線發射
 
 ## 電路圖
-<img src="circuit.jpg" />
+<img src="circuit.jpg" width=600 height=600 />
 
 
 ## 語音指令
-<imr src="voice.jpg" />
+<img src="voice1.jpg" width=300 height=300 /><br>
+<img src="voice2.jpg" width=800 height=1200 /><br>
 
 
 <br><br>
 
-展示作品
+展示作品 <br>
 <a href="https://www.youtube.com/watch?v=Di42x7_0z_I" target="_blank">智能語音家電控制系統</a>
 <br>
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=5OdbJlpC2AE" target="_blank"><img src="http://img.youtube.com/vi/5OdbJlpC2AE/0.jpg" 
 alt="智能語音家電控制系統" width="800" height="500" border="10" /></a>
 <br>影片取自 youtube
 
-<br>
+<br><br><br>
 
+智能語音家電控制程式碼
 ```
 #include <IRremote.hpp>
 #include <SoftwareSerial.h>
