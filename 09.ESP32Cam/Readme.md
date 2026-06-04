@@ -25,5 +25,3 @@ https://dl.espressif.com/dl/package_esp32_index.json
 <img src="009.jpg" width=400 height=400 />
 
 <img src="010.jpg" width=400 height=400 />
-
-<img src="005.jpg" width=400 height=400 />
