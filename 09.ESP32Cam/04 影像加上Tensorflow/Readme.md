@@ -23,13 +23,13 @@ https://teachablemachine.withgoogle.com/models/boksYZN-v/
 
 使用腳位，如果不需要監看序列埠，可以省略 TX RX 腳位。 <br>
 
-| USB TTL | ESP32 Cam |  DHT 11  |
-|---------|-----------|----------|
-|  5V     |    5V     |    V     |
-|  TX     |   UOR     |          |
-|  RX     |   UOT     |          |
-|  GND    |   GND     |    G     |
-|         |   IO13    |    S     |
+| USB TTL | ESP32 Cam | 
+|---------|-----------|
+|  5V     |    5V     |
+|  TX     |   UOR     |
+|  RX     |   UOT     |
+|  GND    |   GND     |
+|         |   IO13    |
 
 
 
