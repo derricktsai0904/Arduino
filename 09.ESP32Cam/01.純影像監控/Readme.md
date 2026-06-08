@@ -1,5 +1,10 @@
 ### 使用USB TTL 接上 ESP32 Cam ，就可以直接觀看，燒錄方式請參閱 09.ESP32Cam 說明。<br><br>
 
+### ESP32 Cam 腳位
+
+<img src="ESP32CAM.jpg" width=400 height=400 /><br>
+
+
 
 ### 使用腳位，如果不需要監看序列埠，可以省略 TX RX 腳位。
 | USB TTL | ESP32 Cam |
