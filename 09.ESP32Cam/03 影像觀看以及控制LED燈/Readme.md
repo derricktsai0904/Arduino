@@ -1,5 +1,9 @@
 ### ESP32 Cam 觀看影像，並且在網頁上控制 LED 燈開啟以及關閉。<br>
 
+### ESP32 Cam 腳位
+
+<img src="ESP32CAM.jpg" width=400 height=400 /><br>
+
 ### 電路圖 <br>
 
 <img src="103.jpg" width=400 height=400 /><br>
