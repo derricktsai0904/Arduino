@@ -9,11 +9,14 @@
 之後會出現以下的畫面，然後請將 STAIP address: 的IP位址複製下來，並貼到瀏覽器上。<br>
 <img src="T3.jpg" width=400 height=400 /><br>
 
-貼到瀏覽器後，如下圖所示畫面。<br>
-<img src="T1.jpg" width=400 height=400 /><br>
+### 貼到瀏覽器後，如下圖所示畫面。<br>
+<img src="T1.jpg" width=400 height=400 /><br><br>
 
-如下圖要填上 Teachable machine 模型網址，然後按下 Start Recognition ，就可以開始運作。<br>
-<img src="T2.jpg" width=400 height=400 /><br>
+### 如下圖要填上 Teachable machine 模型網址，然後按下 Start Recognition ，就可以開始運作。<br>
+#### Teachable Machine 訓練剪刀、石頭、布以及不出拳的模型<br>
+https://teachablemachine.withgoogle.com/models/boksYZN-v/
+
+<br><img src="T2.jpg" width=400 height=400 /><br><br>
 
 
 ### 接腳說明 <br>
@@ -28,9 +31,6 @@
 |  GND    |   GND     |    G     |
 |         |   IO13    |    S     |
 
-
-### Teachable Machine 訓練剪刀、石頭、布以及不出拳的模型
-https://teachablemachine.withgoogle.com/models/boksYZN-v/
 
 
 ### Arduino 程式碼
