@@ -25,3 +25,17 @@ https://dl.espressif.com/dl/package_esp32_index.json
 <img src="009.jpg" width=400 height=400 />
 
 <img src="010.jpg" width=400 height=400 />
+
+
+燒錄方式 請參考下圖，使用一個 USB to TTL 的燒錄器，
+
+| USB TTL | ESP32 Cam |
+|---------|-----------|
+|  5V     |    5V     |
+|  TX     |   UOR     |
+|  RX     |   UOT     |
+|  GND    |   GND     |
+
+注意,燒錄時，請將ESP32 Cam 的 ID0 跟 GND 要相接，等燒錄完成再移除。
+
+<img src="011.jpg" width=400 height=400 />
