@@ -5,14 +5,14 @@
 <img src="ESP32CAM.jpg" width=400 height=400 /><br>
 
 
-### 燒錄程式完成後，請開啟監控視窗，並且設定 Baud Rate 為 115200，然後按下 ESP32 Cam 的 Teset 按鈕
-之後會出現以下的畫面，然後請將 STAIP address: 的IP位址複製下來，並貼到瀏覽器上。
+### 燒錄程式完成後，請開啟監控視窗，並且設定 Baud Rate 為 115200，然後按下 ESP32 Cam 的 Teset 按鈕<br>
+之後會出現以下的畫面，然後請將 STAIP address: 的IP位址複製下來，並貼到瀏覽器上。<br>
 <img src="T3.jpg" width=400 height=400 /><br>
 
-貼到瀏覽器後，如下圖所示畫面。
+貼到瀏覽器後，如下圖所示畫面。<br>
 <img src="T1.jpg" width=400 height=400 /><br>
 
-如下圖要填上 Teachable machine 模型網址，然後按下 Start Recognition ，就可以開始運作。
+如下圖要填上 Teachable machine 模型網址，然後按下 Start Recognition ，就可以開始運作。<br>
 <img src="T2.jpg" width=400 height=400 /><br>
 
 
