@@ -3196,4 +3196,330 @@ void loop()
 ```
 
 
+## 以下程式碼範例 是可以調整音量
+```arduino
+/* ESP32-CAM Smart Voice V4
+   AI Thinker ESP32-CAM + SD_MMC (1-bit) + MAX98357A
+   Arduino-ESP32 2.0.x (legacy driver/i2s.h API)
+   Change Wi-Fi credentials below before uploading.
+*/
+#include <Arduino.h>
+#include "esp_camera.h"
+#include <WiFi.h>
+#include <WebServer.h>
+#include "FS.h"
+#include "SD_MMC.h"
+#include "driver/i2s.h"
+#include <math.h>
+
+const char* ssid = "XXXXXXXXX";
+const char* password = "XXXXXXXXXX";
+
+#define PWDN_GPIO_NUM 32
+#define RESET_GPIO_NUM -1
+#define XCLK_GPIO_NUM 0
+#define SIOD_GPIO_NUM 26
+#define SIOC_GPIO_NUM 27
+#define Y9_GPIO_NUM 35
+#define Y8_GPIO_NUM 34
+#define Y7_GPIO_NUM 39
+#define Y6_GPIO_NUM 36
+#define Y5_GPIO_NUM 21
+#define Y4_GPIO_NUM 19
+#define Y3_GPIO_NUM 18
+#define Y2_GPIO_NUM 5
+#define VSYNC_GPIO_NUM 25
+#define HREF_GPIO_NUM 23
+#define PCLK_GPIO_NUM 22
+
+#define I2S_BCLK 12
+#define I2S_LRC 13
+#define I2S_DOUT 4
+#define I2S_PORT I2S_NUM_1
+
+WebServer webServer(80);
+WiFiServer streamServer(81);
+bool cameraReady = false, sdReady = false, audioReady = false;
+volatile bool audioPlaying = false;
+volatile int volumePercent = 70;
+volatile int lastNonzeroVolume = 70;
+QueueHandle_t audioQueue = nullptr;
+
+enum AudioCommand : uint8_t { CMD_HELLO, CMD_YES, CMD_THANKS, CMD_FINISH, CMD_TEST };
+
+const char INDEX_HTML[] PROGMEM = R"HTML(
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ESP32-CAM 智慧語音系統 V4</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0d1725;color:#f5f8ff;font-family:Arial,"Microsoft JhengHei",sans-serif;text-align:center}
+header{background:#163450;padding:18px}h1{margin:0;font-size:25px}.sub{margin-top:7px;color:#b8d7ef;font-size:13px}
+main{max-width:850px;margin:auto;padding:16px}.panel{background:#1b344d;border-radius:16px;padding:18px;margin:14px 0;box-shadow:0 4px 18px #0004}
+#stream{width:100%;max-width:640px;min-height:200px;background:#05080d;border-radius:10px;object-fit:contain}
+button{background:#267aca;border:0;border-radius:10px;color:white;padding:13px 19px;margin:5px;font-size:17px;font-weight:600;cursor:pointer}
+button:active{transform:scale(.97)}button:disabled{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px}
+#vol{width:min(100%,500px);accent-color:#56b8ff;cursor:pointer}#volValue{font-size:28px;font-weight:bold;color:#80d2ff}
+#status{min-height:28px;color:#90f7b4;margin-top:12px}#system{white-space:pre-line;color:#d2e1ed;line-height:1.8}
+small{color:#afc5d6}h2{font-size:20px;margin:3px 0 16px}
+</style></head><body>
+<header><h1>ESP32-CAM 智慧語音系統 V4</h1><div class="sub">Camera + SD Card + MAX98357A | 即時音量控制</div></header>
+<main><section class="panel"><h2>即時影像</h2><img id="stream" alt="Camera stream"></section>
+<section class="panel"><h2>SD 卡中文語音播放</h2><div class="row">
+<button onclick="playVoice('hello')">您好</button><button onclick="playVoice('yes')">可以</button>
+<button onclick="playVoice('thanks')">謝謝</button><button onclick="playVoice('finish')">結束</button>
+<button onclick="playVoice('test')">測試音</button></div><div id="status">等待操作</div></section>
+<section class="panel"><h2>喇叭音量控制</h2><div id="volValue">70%</div>
+<input type="range" id="vol" min="0" max="100" step="1" value="70" oninput="previewVolume(this.value)" onchange="sendVolume(this.value)">
+<div class="row"><button onclick="changeVolume(-10)">－ 10</button><button onclick="toggleMute()" id="muteBtn">靜音</button><button onclick="changeVolume(10)">＋ 10</button></div>
+<small>音量 0–100% 為 PCM 振幅比例，非實際聲壓百分比</small></section>
+<section class="panel"><h2>系統狀態</h2><button onclick="systemStatus()">更新狀態</button><div id="system">系統初始化中...</div></section></main>
+<script>
+let currentVolume=70,previousVolume=70,volTimer=null;
+function previewVolume(v){document.getElementById('volValue').textContent=v+'%';clearTimeout(volTimer);volTimer=setTimeout(()=>sendVolume(v),100)}
+async function sendVolume(v){try{let r=await fetch('/volume?value='+encodeURIComponent(v));if(!r.ok)throw Error('設定失敗');let d=await r.json();setVolumeUI(d.volume)}catch(e){document.getElementById('status').textContent='音量設定失敗'}}
+function setVolumeUI(v){currentVolume=Number(v);document.getElementById('vol').value=v;document.getElementById('volValue').textContent=v+'%';document.getElementById('muteBtn').textContent=v==0?'取消靜音':'靜音';if(v>0)previousVolume=v}
+function changeVolume(delta){sendVolume(Math.max(0,Math.min(100,currentVolume+delta)))}
+function toggleMute(){sendVolume(currentVolume===0?(previousVolume||70):0)}
+async function playVoice(name){let e=document.getElementById('status');e.textContent='正在送出播放指令...';try{let r=await fetch('/play?voice='+encodeURIComponent(name));e.textContent=await r.text()}catch(err){e.textContent='連線失敗'}}
+async function systemStatus(){try{let r=await fetch('/status');let d=await r.json();document.getElementById('system').textContent=`Camera : ${d.camera?'OK':'FAILED'}\nSD Card : ${d.sd?'OK':'FAILED'}\nMAX98357A : ${d.audio?'OK':'FAILED'}\nAudio : ${d.playing?'PLAYING':'IDLE'}\nIP : ${d.ip}`;setVolumeUI(d.volume)}catch(e){document.getElementById('system').textContent='狀態查詢失敗'}}
+window.onload=()=>{document.getElementById('stream').src='http://'+location.hostname+':81/stream';systemStatus();setInterval(systemStatus,3000)};
+</script></body></html>
+)HTML";
+
+bool initCamera() {
+  camera_config_t c = {};
+  c.ledc_channel=LEDC_CHANNEL_0; c.ledc_timer=LEDC_TIMER_0;
+  c.pin_d0=Y2_GPIO_NUM;c.pin_d1=Y3_GPIO_NUM;c.pin_d2=Y4_GPIO_NUM;c.pin_d3=Y5_GPIO_NUM;
+  c.pin_d4=Y6_GPIO_NUM;c.pin_d5=Y7_GPIO_NUM;c.pin_d6=Y8_GPIO_NUM;c.pin_d7=Y9_GPIO_NUM;
+  c.pin_xclk=XCLK_GPIO_NUM;c.pin_pclk=PCLK_GPIO_NUM;c.pin_vsync=VSYNC_GPIO_NUM;
+  c.pin_href=HREF_GPIO_NUM;c.pin_sscb_sda=SIOD_GPIO_NUM;c.pin_sscb_scl=SIOC_GPIO_NUM;
+  c.pin_pwdn=PWDN_GPIO_NUM;c.pin_reset=RESET_GPIO_NUM;
+  c.xclk_freq_hz=20000000;c.pixel_format=PIXFORMAT_JPEG;
+  c.frame_size=psramFound()?FRAMESIZE_VGA:FRAMESIZE_QVGA;
+  c.jpeg_quality=psramFound()?12:14;c.fb_count=psramFound()?2:1;
+  esp_err_t e=esp_camera_init(&c);
+  if(e!=ESP_OK)Serial.printf("Camera error: 0x%x\n",e);
+  return e==ESP_OK;
+}
+
+bool initI2S() {
+  i2s_config_t cfg={};
+  cfg.mode=(i2s_mode_t)(I2S_MODE_MASTER|I2S_MODE_TX);
+  cfg.sample_rate=16000;cfg.bits_per_sample=I2S_BITS_PER_SAMPLE_16BIT;
+  cfg.channel_format=I2S_CHANNEL_FMT_RIGHT_LEFT;
+  cfg.communication_format=I2S_COMM_FORMAT_STAND_I2S;
+  cfg.intr_alloc_flags=ESP_INTR_FLAG_LEVEL1;cfg.dma_buf_count=8;cfg.dma_buf_len=256;
+  cfg.use_apll=false;cfg.tx_desc_auto_clear=true;cfg.fixed_mclk=0;
+  if(i2s_driver_install(I2S_PORT,&cfg,0,nullptr)!=ESP_OK)return false;
+  i2s_pin_config_t pins={};
+  pins.bck_io_num=I2S_BCLK;pins.ws_io_num=I2S_LRC;pins.data_out_num=I2S_DOUT;pins.data_in_num=I2S_PIN_NO_CHANGE;
+  if(i2s_set_pin(I2S_PORT,&pins)!=ESP_OK)return false;
+  return i2s_set_clk(I2S_PORT,16000,I2S_BITS_PER_SAMPLE_16BIT,I2S_CHANNEL_STEREO)==ESP_OK;
+}
+
+static inline int16_t scaleSample(int16_t s) {
+  // 0..100% cannot digitally amplify quiet recordings beyond original peak.
+  int v=volumePercent;
+  return (int16_t)(((int32_t)s*v)/100);
+}
+
+bool readExact(File& f,void* ptr,size_t count) {return f.read((uint8_t*)ptr,count)==count;}
+uint16_t readLE16(const uint8_t* p){return (uint16_t)p[0]|((uint16_t)p[1]<<8);}
+uint32_t readLE32(const uint8_t* p){return (uint32_t)p[0]|((uint32_t)p[1]<<8)|((uint32_t)p[2]<<16)|((uint32_t)p[3]<<24);}
+
+bool playWav(const char* path) {
+  if(!sdReady||!audioReady)return false;
+  File f=SD_MMC.open(path,FILE_READ);
+  if(!f){Serial.printf("Missing WAV: %s\n",path);return false;}
+  uint8_t header[12];
+  if(!readExact(f,header,12)||memcmp(header,"RIFF",4)||memcmp(header+8,"WAVE",4)){f.close();return false;}
+  uint16_t format=0,channels=0,bits=0;
+  uint32_t rate=0,dataStart=0,dataLength=0;
+  bool fmtFound=false,dataFound=false;
+  while(f.available()>=8){
+    uint8_t chunk[8];if(!readExact(f,chunk,8))break;
+    uint32_t size=readLE32(chunk+4),start=f.position();
+    uint64_t next=(uint64_t)start+size+(size&1);
+    if(next>f.size())break;
+    if(!memcmp(chunk,"fmt ",4)){
+      if(size<16)break;
+      uint8_t fmt[16];if(!readExact(f,fmt,16))break;
+      format=readLE16(fmt);channels=readLE16(fmt+2);rate=readLE32(fmt+4);bits=readLE16(fmt+14);
+      fmtFound=true;
+    }else if(!memcmp(chunk,"data",4)){
+      dataStart=start;dataLength=size;dataFound=true;
+    }
+    if(fmtFound&&dataFound)break;
+    if(!f.seek((uint32_t)next))break;
+  }
+  if(!fmtFound||!dataFound||format!=1||(channels!=1&&channels!=2)||bits!=16||rate<8000||rate>48000){
+    Serial.println("Unsupported WAV: requires PCM 16-bit mono/stereo 8-48kHz");f.close();return false;
+  }
+  if(i2s_set_clk(I2S_PORT,rate,I2S_BITS_PER_SAMPLE_16BIT,I2S_CHANNEL_STEREO)!=ESP_OK){f.close();return false;}
+  f.seek(dataStart);
+  uint32_t remaining=dataLength;
+  int16_t in[512],out[1024];
+  bool ok=true;
+  while(remaining>=channels*2){
+    size_t want=min((uint32_t)sizeof(in),remaining);
+    want-=want%(channels*2);
+    if(!want)break;
+    int n=f.read((uint8_t*)in,want);
+    if(n<=0){ok=false;break;}
+    size_t frames=n/(channels*2);
+    for(size_t i=0;i<frames;i++){
+      if(channels==1){int16_t s=scaleSample(in[i]);out[i*2]=s;out[i*2+1]=s;}
+      else{out[i*2]=scaleSample(in[i*2]);out[i*2+1]=scaleSample(in[i*2+1]);}
+    }
+    size_t bytes=frames*4,written=0;
+    if(i2s_write(I2S_PORT,out,bytes,&written,portMAX_DELAY)!=ESP_OK||written!=bytes){ok=false;break;}
+    remaining-=frames*channels*2;
+    vTaskDelay(1);
+  }
+  f.close();
+  // Allow the last DMA buffers to finish before clearing.
+  delay(350); // Allow DMA output to drain (including 8 kHz WAV)
+  i2s_zero_dma_buffer(I2S_PORT);
+  Serial.printf("WAV %s: %s\n",path,ok?"finished":"error");
+  return ok;
+}
+
+void playTone(int frequency,int durationMs){
+  if(!audioReady)return;
+  const int rate=16000;
+  i2s_set_clk(I2S_PORT,rate,I2S_BITS_PER_SAMPLE_16BIT,I2S_CHANNEL_STEREO);
+  int16_t samples[256];int count=rate*durationMs/1000;
+  for(int pos=0;pos<count;){
+    int n=min(128,count-pos);
+    for(int i=0;i<n;i++){
+      float a=2.0f*PI*frequency*(pos+i)/rate;
+      int16_t s=scaleSample((int16_t)(sinf(a)*9000));
+      samples[i*2]=s;samples[i*2+1]=s;
+    }
+    size_t written=0;i2s_write(I2S_PORT,samples,n*4,&written,portMAX_DELAY);
+    pos+=n;vTaskDelay(1);
+  }
+  delay(180); // Allow 16 kHz tone DMA output to drain
+  i2s_zero_dma_buffer(I2S_PORT);
+}
+
+void audioTask(void*){
+  AudioCommand cmd;
+  for(;;){
+    if(xQueueReceive(audioQueue,&cmd,portMAX_DELAY)==pdTRUE){
+      audioPlaying=true;
+      switch(cmd){
+        case CMD_HELLO:playWav("/data/hello.wav");break;
+        case CMD_YES:playWav("/data/yes.wav");break;
+        case CMD_THANKS:playWav("/data/thanks.wav");break;
+        case CMD_FINISH:playWav("/data/finish.wav");break;
+        case CMD_TEST:playTone(1000,400);break;
+      }
+      audioPlaying=false;
+    }
+  }
+}
+
+void handleStatus(){
+  String j="{\"camera\":"+String(cameraReady?"true":"false")+
+    ",\"sd\":"+String(sdReady?"true":"false")+
+    ",\"audio\":"+String(audioReady?"true":"false")+
+    ",\"playing\":"+String(audioPlaying?"true":"false")+
+    ",\"volume\":"+String(volumePercent)+
+    ",\"ip\":\""+WiFi.localIP().toString()+"\"}";
+  webServer.send(200,"application/json; charset=utf-8",j);
+}
+void handleVolume(){
+  if(!webServer.hasArg("value")){webServer.send(400,"text/plain","Missing value");return;}
+  String s=webServer.arg("value");
+  if(s.length()==0||s.length()>3){webServer.send(400,"text/plain","Invalid value");return;}
+  for(size_t i=0;i<s.length();i++)if(!isDigit(s[i])){webServer.send(400,"text/plain","Invalid value");return;}
+  int v=s.toInt();
+  if(v<0||v>100){webServer.send(400,"text/plain","Volume must be 0-100");return;}
+  volumePercent=v;
+  if(v>0)lastNonzeroVolume=v;
+  webServer.send(200,"application/json","{\"volume\":"+String(v)+"}");
+}
+void handlePlay(){
+  if(!webServer.hasArg("voice")){webServer.send(400,"text/plain; charset=utf-8","缺少 voice 參數");return;}
+  String name=webServer.arg("voice");AudioCommand cmd;
+  if(name=="hello")cmd=CMD_HELLO;
+  else if(name=="yes")cmd=CMD_YES;
+  else if(name=="thanks")cmd=CMD_THANKS;
+  else if(name=="finish")cmd=CMD_FINISH;
+  else if(name=="test")cmd=CMD_TEST;
+  else{webServer.send(400,"text/plain; charset=utf-8","未知語音命令");return;}
+  if(!audioReady||(cmd!=CMD_TEST&&!sdReady)){webServer.send(503,"text/plain; charset=utf-8","音訊或 SD 卡尚未就緒");return;}
+  if(audioPlaying||uxQueueMessagesWaiting(audioQueue)>0){webServer.send(409,"text/plain; charset=utf-8","目前正在播放其他語音");return;}
+  if(xQueueSend(audioQueue,&cmd,0)!=pdTRUE){webServer.send(503,"text/plain; charset=utf-8","播放佇列忙碌");return;}
+  webServer.send(202,"text/plain; charset=utf-8","已開始播放，音量可即時調整");
+}
+
+void streamCamera(WiFiClient client){
+  client.print("HTTP/1.1 200 OK\r\nAccess-Control-Allow-Origin: *\r\nContent-Type: multipart/x-mixed-replace; boundary=frame\r\nConnection: close\r\n\r\n");
+  int failed=0;
+  while(client.connected()){
+    camera_fb_t* fb=esp_camera_fb_get();
+    if(!fb){if(++failed>20)break;vTaskDelay(pdMS_TO_TICKS(40));continue;}
+    failed=0;
+    client.printf("--frame\r\nContent-Type: image/jpeg\r\nContent-Length: %u\r\n\r\n",(unsigned)fb->len);
+    size_t sent=client.write(fb->buf,fb->len);
+    client.print("\r\n");
+    esp_camera_fb_return(fb);
+    if(sent==0)break;
+    vTaskDelay(pdMS_TO_TICKS(45));
+  }
+  client.stop();
+}
+void streamTask(void*){
+  for(;;){
+    WiFiClient client=streamServer.available();
+    if(client){
+      client.setTimeout(1200);
+      String req=client.readStringUntil('\n');
+      unsigned long start=millis();
+      while(client.connected()&&millis()-start<1200){
+        if(client.available()){
+          String line=client.readStringUntil('\n');
+          if(line=="\r"||line.length()==0)break;
+        }else vTaskDelay(pdMS_TO_TICKS(1));
+      }
+      if(req.startsWith("GET /stream "))streamCamera(client);
+      else{client.print("HTTP/1.1 404 Not Found\r\nConnection: close\r\n\r\n");client.stop();}
+    }
+    vTaskDelay(pdMS_TO_TICKS(2));
+  }
+}
+
+void setup(){
+  Serial.begin(115200);delay(1200);
+  Serial.println("ESP32-CAM Smart Voice V4");
+  cameraReady=initCamera();Serial.printf("Camera: %s\n",cameraReady?"OK":"FAIL");
+  sdReady=SD_MMC.begin("/sdcard",true)&&SD_MMC.cardType()!=CARD_NONE;
+  Serial.printf("SD: %s\n",sdReady?"OK":"FAIL");
+  audioReady=initI2S();Serial.printf("I2S: %s\n",audioReady?"OK":"FAIL");
+  audioQueue=xQueueCreate(1,sizeof(AudioCommand));
+  if(!audioQueue){Serial.println("Audio queue failed");audioReady=false;}
+  else xTaskCreatePinnedToCore(audioTask,"AudioTask",6144,nullptr,1,nullptr,1);
+  WiFi.mode(WIFI_STA);WiFi.begin(ssid,password);
+  Serial.print("WiFi connecting");
+  unsigned long start=millis();
+  while(WiFi.status()!=WL_CONNECTED&&millis()-start<20000){delay(500);Serial.print(".");}
+  if(WiFi.status()!=WL_CONNECTED){Serial.println("\nWiFi failed; check SSID/password");return;}
+  Serial.printf("\nControl: http://%s/\nStream: http://%s:81/stream\n",WiFi.localIP().toString().c_str(),WiFi.localIP().toString().c_str());
+  webServer.on("/",HTTP_GET,[]{webServer.send_P(200,"text/html; charset=utf-8",INDEX_HTML);});
+  webServer.on("/status",HTTP_GET,handleStatus);
+  webServer.on("/volume",HTTP_GET,handleVolume);
+  webServer.on("/play",HTTP_GET,handlePlay);
+  webServer.begin();
+  if(cameraReady){streamServer.begin();xTaskCreatePinnedToCore(streamTask,"CameraStream",8192,nullptr,1,nullptr,0);}
+}
+void loop(){webServer.handleClient();delay(2);}
+
+
+
+```
+
+
 
